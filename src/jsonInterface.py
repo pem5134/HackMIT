@@ -10,14 +10,15 @@ import sys
 def getTransactions(address):
 	url = "https://bitcoin.toshi.io/api/v0/addresses/" + address + "/transactions"
 	data = json.loads(urllib.request.urlopen(url).readall().decode("utf8"))
-	children = []
-	for transaction in data["transactions"]:
-		dests = transaction["outputs"]
-		current = []
-		for dest in dests:
-			current.append((dest["addresses"][0], dest["amount"]))
-		children.extend([current])
-	return children
+	return data
+	# children = []
+	# for transaction in data["transactions"]:
+	# 	dests = transaction["outputs"]
+	# 	current = []
+	# 	for dest in dests:
+	# 		current.append((dest["addresses"][0], dest["amount"]))
+	# 	children.extend([current])
+	# return children
 
 address = "1AeZL1f5YSDo6bhMcinuU3xFZgVjffYyPQ"
 
