@@ -1,7 +1,9 @@
 
 import json
 
-import urllib2
+#import urllib2
+
+from flask import Flask, render_template
 
 #json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}])
 
@@ -25,11 +27,26 @@ import urllib2
 # print data2["outputs"][0]["addresses"]
 
 
-def getTransactions(address):
-	url = "https://bitcoin.toshi.io/api/v0/addresses/" + address + "/transactions"
-	data = json.load(urllib2.urlopen(url))
-	dests = data["transactions"][0]["outputs"]
-	children = []
-	for dest in dests:
-		children.append((dest["addresses"][0], dest["amount"]))
-	return children
+# def getTransactions(address):
+# 	url = "https://bitcoin.toshi.io/api/v0/addresses/" + address + "/transactions"
+# 	data = json.load(urllib2.urlopen(url))
+# 	dests = data["transactions"][0]["outputs"]
+# 	children = []
+# 	for dest in dests:
+# 		children.append((dest["addresses"][0], dest["amount"]))
+# 	return children
+
+app = Flask(__name__)
+app.debug = False
+
+@app.route("/")
+def home():
+  #children = getTransactions("13D9F9zeBneXTjpbmcGdxGPcRmAs8UeokB")
+  return render_template("index.html")#, children = children)
+
+@app.route("/about")
+def about():
+	return render_template("about.html")
+
+if __name__ == "__main__":
+  app.run()
