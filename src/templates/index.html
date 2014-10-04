@@ -16,31 +16,4 @@
           </em>
         </div>
         <p id="transaction"></p>
-        {% for entry in blogEntries %}
-        <div class="blog-entry">
-          <div class="entry-header">
-            <div class="entry-title">
-              {{entry.title}}
-            </div>
-            <div class="entry-metadata">
-              <div class="entry-author">
-                <p class="entry-author">{{entry.author}}</p>
-              </div>
-              <div class="entry-date">
-                <p class="entry-date">{{ entry.date.strftime("%I:%M %p (UTC) %b %d, %Y") }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="entry-content">
-            <p class="entry-description">
-              {{entry.text}}
-            </p>
-          </div>
-          <div class="entry-toggle">
-            <p>
-              click here to show/hide
-            </p>
-          </div>
-        </div>
-        {% endfor %}
 {% endblock %}

@@ -5,8 +5,8 @@
 
 function on_request_success(response) {
 	var data = JSON.parse(response);
-	console.log(response);
-	console.log(data[0][0][1]);
+	//console.log(response);
+	console.log(data["transactions"][0]["outputs"][0]["addresses"][0]);
 }
 
 $.ajax({
