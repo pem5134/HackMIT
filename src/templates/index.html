@@ -4,6 +4,8 @@
     <title>The Everyman Blog</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='toggling.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='interface.js') }}"></script>
+
 {% endblock %}
 
 {% block body %}
@@ -13,7 +15,7 @@
             the WebDevWeeks sample blog
           </em>
         </div>
-        <p>{{children}}</p>
+        <p id="transaction"></p>
         {% for entry in blogEntries %}
         <div class="blog-entry">
           <div class="entry-header">

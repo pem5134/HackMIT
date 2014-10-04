@@ -28,12 +28,16 @@ app.debug = False
 
 @app.route("/")
 def home():
-  children = getTransactions("13D9F9zeBneXTjpbmcGdxGPcRmAs8UeokB")
-  return render_template("index.html", children = children)
+  return render_template("index.html")
 
 @app.route("/about")
 def about():
 	return render_template("about.html")
+
+@app.route("/data")
+def data():
+	children = getTransactions("13D9F9zeBneXTjpbmcGdxGPcRmAs8UeokB")
+	return json.dumps(children)
 
 if __name__ == "__main__":
   app.run()
