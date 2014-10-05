@@ -18,12 +18,16 @@ $.ajax({
 }
 );
 
+function makeTree(data) {
+	window.open('http://localhost:5000/tree.html');
+}
+
 function createGraph(address) {
-	$.getJSON('http://localhost:5000/_getData', {
-		word: address
-	}, function(data){
-		console.log(data.result)
-		$( "#result" ).text(data.result);
+	$.ajax({
+		dataType: "json",
+		url: 'http://localhost:5000/_getData',
+		data: {word: address},
+		success: makeTree
 	});
 }
 

@@ -15,10 +15,14 @@
 
 {% block body %}
         <div class="body-header">
-          <h1>The Everyman Blog</h1>
+          <h1>Tosh.1</h1>
           <em>
-            the WebDevWeeks sample blog
+            The best HackMIT hack.
           </em>
         </div>
-        <p id="transaction"></p>
+        <p id="transaction">
+          Root address:
+        </p>
+        <input id="address" type="text">
+        <button type="button" onclick="createGraph(document.getElementById('address').value)">Make me a graph!!!!!</button>
 {% endblock %}
