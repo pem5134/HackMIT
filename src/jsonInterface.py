@@ -54,10 +54,17 @@ def flare():
 		data=myfile.read().replace('\n', '')
 	return data
 
+@app.route('/current.json')
+def current():
+	print(5)
+	with open("templates/current.json", "r") as infile:
+		data=infile.read().replace('\n', '')
+	return data
+
 @app.route('/_getData')
 def getData():
 	address = request.args.get('word', type=str)
-	tree = FormatJSON.createJSON(address)	
+	tree = FormatJSON.createJSON(address, 3)	
 	with open("templates/current.json", "w") as outfile:
 		json.dump(tree, outfile)
 	return jsonify(result=tree)

@@ -17,7 +17,7 @@
 
   <script type="text/javascript">
 
-var m = [20, 120, 20, 120],
+var m = [20, 250, 20, 275],
     w = 1280 - m[1] - m[3],
     h = 800 - m[0] - m[2],
     i = 0,
@@ -37,10 +37,10 @@ var vis = d3.select("#test").append("svg:svg")
     .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-d3.json("flare.json", function(json) {
+d3.json("current.json", function(json) {
   root = json;
   console.log(root)
-  root.x0 = h / 2;
+  root.x0 = h / 2 - 100;
   root.y0 = 0;
 
   function toggleAll(d) {
@@ -53,10 +53,6 @@ d3.json("flare.json", function(json) {
   // Initialize the display to show a few nodes.
   root.children.forEach(toggleAll);
   toggle(root);
-  // toggle(root.children[1]);
-  // toggle(root.children[1].children[2]);
-  // toggle(root.children[9]);
-  // toggle(root.children[9].children[0]);
 
   update(root);
 });
@@ -68,7 +64,7 @@ function update(source) {
   var nodes = tree.nodes(root).reverse();
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) { d.y = d.depth * 275; });
 
   // Update the nodes…
   var node = vis.selectAll("g.node")
@@ -99,13 +95,14 @@ function update(source) {
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeUpdate.select("circle")
-      .attr("r", 4.5)
+      .attr("r", function(d) { return d.size / 200})
       .style("stroke-width", 1)
       .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
   nodeUpdate.select("text")
       .attr("dy", ".2em")
-      .style("fill-opacity", 1);
+      //.style("fill-opacity", 1)
+      .style("fill-opacity", function(d) { return (!d.children || d._children) ? 1 : 1e-6; });
 
   // Transition exiting nodes to the parent's new position.
   var nodeExit = node.exit().transition()

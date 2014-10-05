@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <title>The Everyman Blog</title>
+    <title>Tosh.1</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='toggling.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='interface.js') }}"></script>
@@ -17,12 +17,13 @@
         <div class="body-header">
           <h1>Tosh.1</h1>
           <em>
-            The best HackMIT hack.
+            An interactive Bitcoin exploration tool
           </em>
         </div>
         <p id="transaction">
           Root address:
-        </p>
         <input id="address" type="text">
-        <button type="button" onclick="createGraph(document.getElementById('address').value)">Make me a graph!!!!!</button>
+        <button type="button" onclick="createGraph(document.getElementById('address').value)">Make me a graph!</button>
+      </p>
+      <img src="http://img1.wikia.nocookie.net/__cb20130608144609/anime-arts/images/7/7a/Nyan_cat_by_kkiittuuss-d4k5mf8.png">
 {% endblock %}
