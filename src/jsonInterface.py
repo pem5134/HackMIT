@@ -1,7 +1,7 @@
 
 # get child addresses from each transaction at a given address
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 
 import json
 import urllib.request
@@ -39,6 +39,27 @@ def about():
 def data():
 	children = getTransactions("13D9F9zeBneXTjpbmcGdxGPcRmAs8UeokB")
 	return json.dumps(children)
+
+@app.route('/_array2python')
+def sendToPython():
+	wordList = request.args.get('wordlist')
+	return jsonify(result=wordList)
+
+@app.route('/tree')
+def tree():
+	return render_template("tree.html")
+
+@app.route('/flare.json')
+def flare():
+	with open("templates/flare.json", "r") as myfile:
+		data=myfile.read().replace('\n', '')
+	return data
+
+@app.route('/_getData')
+def getData():
+	address = request.args.get('word', type=str)
+	children = getTransactions(address)
+	return jsonify(result=children)
 
 if __name__ == "__main__":
   app.run()
