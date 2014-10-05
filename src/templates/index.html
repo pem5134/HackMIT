@@ -5,6 +5,11 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='toggling.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='interface.js') }}"></script>
+    <script type="text/javascript"> $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <!--<script type="text/javascript" src="d3/d3.js"></script>-->
+    
+
 
 {% endblock %}
 
