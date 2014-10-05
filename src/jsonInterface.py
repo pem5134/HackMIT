@@ -22,8 +22,6 @@ def getTransactions(address):
 
 address = "1AeZL1f5YSDo6bhMcinuU3xFZgVjffYyPQ"
 
-children = getTransactions(address)
-
 app = Flask(__name__)
 app.debug = False
 
@@ -45,7 +43,7 @@ def sendToPython():
 	wordList = request.args.get('wordlist')
 	return jsonify(result=wordList)
 
-@app.route('/tree')
+@app.route('/tree.html')
 def tree():
 	return render_template("tree.html")
 
@@ -59,7 +57,58 @@ def flare():
 def getData():
 	address = request.args.get('word', type=str)
 	children = getTransactions(address)
-	return jsonify(result=children)
+	tree = createJson(children["transactions"], address, 2)	
+	with open("templates/current.json", "w") as outfile:
+		json.dump(tree, outfile)
+	return jsonify(result=tree)
+
+def createJson(transactions, address, depth):
+	print("depth:", depth)
+	if depth == 1:
+		leaves = []
+		for transaction in transactions:
+			inputs = transaction["inputs"]
+			outputs = transaction["outputs"]
+			keep = False
+			for inner in inputs:
+				if inner["addresses"][0] == address:
+					keep = True
+			if keep:
+				for output in outputs:
+					leaves.append({"name": transaction["outputs"][0]["addresses"][0],
+						   "size": transaction["outputs"][0]["amount"]})
+		if leaves != []:
+			return leaves[0]
+		return leaves
+	else:
+		tree = {}
+		tree["name"] = address
+		tree["children"] = []
+		print(tree)
+		for child in transactions:
+			print(1)
+			#print("child:", child)
+			inputs = child["inputs"]
+			outputs = child["outputs"]
+			keep = False
+			print(2)
+			for inner in inputs:
+				if inner["addresses"][0] == address:
+					print("got one")
+					keep = True
+			if keep:
+				for output in outputs:
+					print("we did it!")
+					print(output)
+					newAddress = output["addresses"][0]
+					newData = getTransactions(newAddress)
+					print("or did we?")
+					tree["children"].append(createJson(newData["transactions"],
+											newAddress, depth-1))
+					
+	return tree
+
 
 if __name__ == "__main__":
   app.run()
+
